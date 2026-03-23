@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Dios - Altheros</title>
+    <style>
+        body { background-color: #0a0a0a; color: #eee; font-family: monospace; padding: 20px; }
+        h1, h2 { color: #ff4444; border-bottom: 2px solid #551111; padding-bottom: 10px; margin-top:0; }
+        .grid-container { display: flex; gap: 20px; margin-top: 20px; align-items: flex-start; }
+        .panel { background: #1a1a1a; padding: 20px; border: 1px solid #333; border-radius: 8px; flex: 1; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        th, td { border: 1px solid #444; padding: 8px; text-align: left; }
+        th { background: #331111; color: white; }
+        button { background: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; font-weight: bold; }
+        button:hover { background: #cc0000; }
+        input, select { padding: 5px; background: #222; color: white; border: 1px solid #555; width: 60px; margin-bottom: 10px; }
+        input.texto-largo, select.texto-largo { width: 90%; }
+        #editor-jugador { display: none; background: #220000; padding: 20px; border: 2px solid #ff4444; margin-top: 20px; }
+        .editor-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>👁️ Panel de Game Master - Tales of Altheros</h1>
+
+    <div class="grid-container">
+        
+        <div class="panel" style="flex: 2;">
+            <h2>Gestión de Jugadores</h2>
+            <button onclick="cargarJugadores()">🔄 Recargar</button>
+            <table>
+                <thead><tr><th>Usuario</th><th>Personaje</th><th>Oro</th><th>Inventario (Texto)</th><th>Acción</th></tr></thead>
+                <tbody id="tabla-jugadores"></tbody>
+            </table>
+
+            <div id="editor-jugador">
+                <h3 style="color: white; margin-top: 0;">Editando a: <span id="edit-nombre" style="color:#ffaa00;"></span></h3>
+                <input type="hidden" id="edit-usuario">
+                <div class="editor-grid">
+                    <div><label>💰 Oro:</label><br><input type="number" id="edit-oro"></div>
+                    <div><label>⚔️ Marcial Base:</label><br><input type="number" id="edit-marcial"></div>
+                    <div><label>🤝 Diplomacia Base:</label><br><input type="number" id="edit-diplomacia"></div>
+                    <div><label>📖 Conoc. Base:</label><br><input type="number" id="edit-conocimiento"></div>
+                    <div><label>🐍 Intriga Base:</label><br><input type="number" id="edit-intriga"></div>
+                    <div><label>🗡️ Destreza Base:</label><br><input type="number" id="edit-destreza"></div>
+                </div>
+                <label>🎒 Inventario (Nombres exactos separados por comas):</label><br>
+                <input type="text" id="edit-inventario" class="texto-largo"><br>
+                <button onclick="guardarEdicion()">💾 Guardar</button>
+                <button onclick="document.getElementById('editor-jugador').style.display='none'" style="background:#555;">Cancelar</button>
+            </div>
+
+            <h2 style="margin-top: 30px; color: #00ffff;">🤖 Motor Narrativo: Crear Misión (IA)</h2>
+            <div style="background: #002222; padding: 15px; border: 1px dashed #00ffff;">
+                <label>Zona del Mapa:</label>
+                <select id="mision-zona" class="texto-largo" style="margin-bottom: 10px;">
+                    <option value="Marca del Sur">Marca del Sur</option>
+                    <option value="Tierras del Centro">Tierras del Centro</option>
+                    <option value="Salmuera">Salmuera</option>
+                    <option value="Isla del Gato">Isla del Gato</option>
+                    <option value="Zahramar">Zahramar</option>
+                    <option value="Velmora">Velmora</option>
+                </select>
+
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <div style="flex:1;">
+                        <label>Dificultad (1-30):</label>
+                        <input type="number" id="mision-dif" value="15" style="width: 100%;">
+                    </div>
+                    <div style="flex:1;">
+                        <label>Oro Recompensa:</label>
+                        <input type="number" id="mision-oro" value="100" style="width: 100%;">
+                    </div>
+                </div>
+
+                <div style="border-top: 1px dashed #005555; margin-top: 10px; padding-top: 10px;">
+                    <label style="color:#00ffff;">Ítem Recompensa (Opcional):</label><br>
+                    <input type="text" id="mision-item" class="texto-largo" placeholder="Ej: Amuleto del Cuervo"><br>
+                    
+                    <span style="font-size: 11px; color: #aaa;">Si el ítem es nuevo, ponele stats acá:</span><br>
+                    <label>M:</label> <input type="number" id="m-m" value="0" style="width:40px;">
+                    <label>Di:</label> <input type="number" id="m-d" value="0" style="width:40px;">
+                    <label>C:</label> <input type="number" id="m-c" value="0" style="width:40px;">
+                    <label>I:</label> <input type="number" id="m-i" value="0" style="width:40px;">
+                    <label>De:</label> <input type="number" id="m-des" value="0" style="width:40px;">
+                </div>
+
+                <button onclick="generarMision()" style="width:100%; margin-top:10px; background:#00ffff; color:black;">Inyectar Misión al Mundo</button>
+            </div>
+        </div>
+
+        <div class="panel" style="flex: 2;">
+            <h2>Catálogo del Sistema (La Corona)</h2>
+            <div style="background: #111; padding: 15px; border: 1px dashed #555; margin-bottom: 15px;">
+                <input type="text" id="nuevo-nombre" class="texto-largo" placeholder="Nombre (Ej: Hacha del Exilio)"><br>
+                <label>Oro:</label> <input type="number" id="nuevo-precio" value="500"> 
+                <label>Marcial:</label> <input type="number" id="n-m" value="0">
+                <label>Diplo:</label> <input type="number" id="n-d" value="0"><br>
+                <label>Conoc:</label> <input type="number" id="n-c" value="0">
+                <label>Intrig:</label> <input type="number" id="n-i" value="0">
+                <label>Destr:</label> <input type="number" id="n-des" value="0"><br>
+                <button onclick="crearItem()" style="width:100%; margin-top:10px;">Forjar Ítem al Catálogo</button>
+            </div>
+            
+            <table>
+                <thead><tr><th>Ítem</th><th>Oro</th><th>Acción</th></tr></thead>
+                <tbody id="tabla-catalogo-gm"></tbody>
+            </table>
+
+            <h2 style="margin-top: 30px;">Policía de Jugadores (Mercado Libre)</h2>
+            <button onclick="cargarMercadoGM()">🔍 Ver Ofertas Activas</button>
+            <table>
+                <thead><tr><th>Ítem</th><th>Oro</th><th>Vendedor</th><th>Acción</th></tr></thead>
+                <tbody id="tabla-mercado-gm"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function cargarJugadores() { fetch('/api/gm/jugadores').then(r => r.json()).then(jugadores => { window.jugadoresData = jugadores; document.getElementById('tabla-jugadores').innerHTML = jugadores.map((j, i) => `<tr><td>${j.usuario}</td><td>${j.nombre_personaje||'-'}</td><td>${j.oro}</td><td>${(j.inventario || '')}</td><td><button onclick="abrirEditor(${i})">Editar</button></td></tr>`).join(''); }); }
+        function abrirEditor(i) { const j = window.jugadoresData[i]; document.getElementById('edit-nombre').textContent = j.nombre_personaje; document.getElementById('edit-usuario').value = j.usuario; document.getElementById('edit-oro').value = j.oro; document.getElementById('edit-marcial').value = j.marcial; document.getElementById('edit-diplomacia').value = j.diplomacia; document.getElementById('edit-conocimiento').value = j.conocimiento; document.getElementById('edit-intriga').value = j.intriga; document.getElementById('edit-destreza').value = j.destreza; document.getElementById('edit-inventario').value = j.inventario || ''; document.getElementById('editor-jugador').style.display = 'block'; }
+        function guardarEdicion() { const d = { usuario: document.getElementById('edit-usuario').value, oro: document.getElementById('edit-oro').value, marcial: document.getElementById('edit-marcial').value, diplomacia: document.getElementById('edit-diplomacia').value, conocimiento: document.getElementById('edit-conocimiento').value, intriga: document.getElementById('edit-intriga').value, destreza: document.getElementById('edit-destreza').value, inventario: document.getElementById('edit-inventario').value }; fetch('/api/gm/editar-jugador', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(d) }).then(r => r.json()).then(res => { if(res.success){ document.getElementById('editor-jugador').style.display='none'; cargarJugadores(); }}); }
+
+        function cargarCatalogoGM() { fetch('/api/mercado/sistema').then(r => r.json()).then(items => { document.getElementById('tabla-catalogo-gm').innerHTML = items.map(i => `<tr><td>${i.nombre}</td><td>${i.precio}</td><td><button style="background:darkred;" onclick="borrarCatalogo(${i.id})">Destruir</button></td></tr>`).join(''); }); }
+        function crearItem() { const p = { nombre: document.getElementById('nuevo-nombre').value, precio: document.getElementById('nuevo-precio').value, m: document.getElementById('n-m').value, d: document.getElementById('n-d').value, c: document.getElementById('n-c').value, i: document.getElementById('n-i').value, des: document.getElementById('n-des').value }; fetch('/api/gm/crear-item', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(p) }).then(r => r.json()).then(res => { if(res.success) { alert("Creado."); cargarCatalogoGM(); } }); }
+        function borrarCatalogo(id) { if(confirm('¿Destruir ítem del catálogo para siempre?')) { fetch(`/api/gm/catalogo/${id}`, { method: 'DELETE' }).then(() => cargarCatalogoGM()); } }
+
+        function cargarMercadoGM() { fetch('/api/mercado').then(r => r.json()).then(ofertas => { document.getElementById('tabla-mercado-gm').innerHTML = ofertas.map(o => `<tr><td>${o.item}</td><td>${o.precio}g</td><td>${o.vendedor_usuario}</td><td><button style="background:darkred;" onclick="borrarOferta(${o.id})">Cancelar (Devuelve Ítem)</button></td></tr>`).join(''); }); }
+        function borrarOferta(id) { if(confirm('¿Eliminar la oferta de este jugador y devolverle el objeto?')) { fetch(`/api/gm/mercado/${id}`, { method: 'DELETE' }).then(() => cargarMercadoGM()); } }
+
+        // --- MISIONES (IA) ---
+        function generarMision() {
+            const payload = {
+                zona: document.getElementById('mision-zona').value,
+                dificultad: document.getElementById('mision-dif').value,
+                oro: document.getElementById('mision-oro').value,
+                item: document.getElementById('mision-item').value,
+                item_m: document.getElementById('m-m').value,
+                item_d: document.getElementById('m-d').value,
+                item_c: document.getElementById('m-c').value,
+                item_i: document.getElementById('m-i').value,
+                item_des: document.getElementById('m-des').value
+            };
+            fetch('/api/gm/generar-mision', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) })
+            .then(r => r.json()).then(res => { 
+                if(res.success) {
+                    alert(`¡Misión inyectada con éxito!\n\nTítulo: ${res.titulo}`); 
+                    // Limpiamos los stats de la recompensa para no crear otro ítem igual por error
+                    document.getElementById('mision-item').value = '';
+                    document.getElementById('m-m').value = '0'; document.getElementById('m-d').value = '0'; document.getElementById('m-c').value = '0'; document.getElementById('m-i').value = '0'; document.getElementById('m-des').value = '0';
+                }
+            });
+        }
+
+        cargarJugadores();
+        cargarCatalogoGM();
+    </script>
+</body>
+</html>

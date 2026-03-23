@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altheros · Acceso</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-hero card">
+      <div class="card-body login-hero-body">
+        <span class="badge">⚜️ Reino de Altheros</span>
+        <h1>Entrá a un mundo donde el poder no espera.</h1>
+        <p class="login-lead">
+          Elegí tu origen, tomá decisiones, enfrentá misiones y construí tu lugar en el reino
+          antes de que otro lo haga mejor, más rápido y con mejor capa.
+        </p>
+
+        <div class="hero-feature-list">
+          <article class="hero-feature">
+            <strong>🗺️ Regiones vivas</strong>
+            <p>Cada territorio tiene tono, riesgos y oportunidades distintas.</p>
+          </article>
+
+          <article class="hero-feature">
+            <strong>📜 Misiones con consecuencias</strong>
+            <p>Tus stats y decisiones definen el resultado. No el chamuyo solo.</p>
+          </article>
+
+          <article class="hero-feature">
+            <strong>🕯️ Heraldo del reino</strong>
+            <p>Los rumores importan. A veces demasiado.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="login-forms">
+      <div class="card auth-card">
+        <div class="card-body auth-card-body">
+          <div class="auth-copy">
+            <h2>Ingresar</h2>
+            <p>Continuá con tu personaje actual.</p>
+          </div>
+
+          <form id="form-login" class="auth-form">
+            <div class="input-group">
+              <label for="login-usuario">Usuario</label>
+              <input id="login-usuario" class="input" type="text" placeholder="Tu usuario" required />
+            </div>
+
+            <div class="input-group">
+              <label for="login-password">Contraseña</label>
+              <input id="login-password" class="input" type="password" placeholder="••••••••" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary auth-submit">Entrar al reino</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card auth-card">
+        <div class="card-body auth-card-body">
+          <div class="auth-copy">
+            <h2>Crear cuenta</h2>
+            <p>Primero cuenta. Después personaje. Después gloria, ruina o ambas.</p>
+          </div>
+
+          <form id="form-register" class="auth-form">
+            <div class="input-group">
+              <label for="register-usuario">Usuario</label>
+              <input id="register-usuario" class="input" type="text" placeholder="Elegí un usuario" required />
+            </div>
+
+            <div class="input-group">
+              <label for="register-password">Contraseña</label>
+              <input id="register-password" class="input" type="password" placeholder="Algo mejor que 1234" required />
+            </div>
+
+            <button type="submit" class="btn btn-secondary auth-submit">Crear cuenta</button>
+          </form>
+
+          <div id="auth-feedback"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/login.js"></script>
+</body>
+</html>

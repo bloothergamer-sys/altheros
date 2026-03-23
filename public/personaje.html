@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altheros · Personaje</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/personaje.css" />
+</head>
+<body class="character-page">
+  <main class="character-shell">
+    <header class="character-topbar card">
+      <div class="character-topbar-left">
+        <div class="topbar-mark">⚜️</div>
+        <div>
+          <h1>Crónica del Personaje</h1>
+          <p>Identidad, build, equipo y recursos. Sin distracciones decorativas por ahora.</p>
+        </div>
+      </div>
+
+      <div class="character-topbar-right">
+        <a id="btn-back-game" class="btn btn-secondary" href="#">Volver al juego</a>
+        <button id="btn-logout" class="btn btn-danger">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <section class="character-grid">
+      <article class="card hero-card">
+        <div class="card-body hero-card-body">
+          <div class="hero-avatar">👤</div>
+
+          <div class="hero-main">
+            <div class="hero-name-row">
+              <h2 id="char-name">Cargando...</h2>
+              <span id="char-house" class="badge">Casa</span>
+            </div>
+            <p id="char-meta" class="hero-meta">Clase · Región · Edad</p>
+            <p id="char-bio" class="hero-bio">Cargando biografía...</p>
+          </div>
+
+          <div class="hero-kpis">
+            <div class="kpi-box"><span>Oro</span><strong id="char-gold">0</strong></div>
+            <div class="kpi-box"><span>Nivel</span><strong id="char-level">1</strong></div>
+            <div class="kpi-box"><span>Prestigio</span><strong id="char-prestige">0</strong></div>
+            <div class="kpi-box"><span>Salud</span><strong id="char-health">100</strong></div>
+            <div class="kpi-box"><span>Energía</span><strong id="char-energy">100</strong></div>
+            <div class="kpi-box"><span>Fertilidad</span><strong id="char-fertility">100</strong></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>🧩 Equipamiento</h3>
+            <span class="section-subtitle">Slots activos del personaje</span>
+          </div>
+          <div id="slots-grid" class="slots-grid"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>📊 Stats</h3>
+            <span class="section-subtitle">Base + traits + equipo</span>
+          </div>
+          <div id="stats-grid" class="stats-grid"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>🧠 Traits</h3>
+            <span class="section-subtitle">Lo que define al personaje de verdad</span>
+          </div>
+          <div id="traits-groups" class="traits-groups"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>🎒 Inventario</h3>
+            <span class="section-subtitle">Bolsa y objetos disponibles</span>
+          </div>
+          <div id="inventory-grid" class="inventory-grid"></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="/js/personaje.js"></script>
+</body>
+</html>

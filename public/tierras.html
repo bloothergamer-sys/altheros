@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altheros · Gestión de Tierras</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/tierras.css" />
+</head>
+<body class="lands-page">
+  <main class="lands-shell">
+    <header class="lands-topbar card">
+      <div class="lands-topbar-left">
+        <div class="topbar-mark">🏰</div>
+        <div>
+          <h1>Consejo del Dominio</h1>
+          <p>Producción, orden interno, recursos y obras de tu heredad.</p>
+        </div>
+      </div>
+      <div class="lands-topbar-right">
+        <a id="btn-back-game" class="btn btn-secondary" href="#">Volver al juego</a>
+      </div>
+    </header>
+
+    <section class="lands-grid">
+      <article class="card lands-hero-card full-span">
+        <div class="card-body lands-hero-body">
+          <div class="lands-hero-main">
+            <div class="lands-name-row">
+              <h2 id="territory-name">Cargando territorio...</h2>
+              <span id="territory-type" class="badge">Tipo</span>
+              <span id="territory-region" class="badge">Región</span>
+            </div>
+            <p id="territory-governing-house" class="lands-subline">Casa gobernante</p>
+            <p id="territory-region-bonus" class="lands-bonus-copy">Bonos regionales</p>
+          </div>
+          <div class="lands-hero-actions">
+            <div class="kpi-box compact"><span>Slots</span><strong id="territory-slots">0/0</strong></div>
+            <div class="kpi-box compact"><span>Poder militar</span><strong id="territory-military-power">0</strong></div>
+            <div class="kpi-box compact"><span>Revuelta</span><strong id="territory-revolt-risk">0</strong></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card full-span">
+        <div class="card-body summary-grid">
+          <section class="summary-panel">
+            <div class="section-head">
+              <h3>⏳ Producción automática</h3>
+              <span class="section-subtitle">Ciclos pasivos del dominio</span>
+            </div>
+            <div id="production-status-box" class="notice info">Cargando...</div>
+            <div class="production-timer-wrap">
+              <div class="timer-label">Próximo tick</div>
+              <div id="next-tick-countdown" class="production-countdown">--:--</div>
+            </div>
+            <div class="section-head compact-head">
+              <h4>Producción por ciclo</h4>
+            </div>
+            <div id="production-preview-grid" class="production-preview-grid"></div>
+            <div class="section-head compact-head">
+              <h4>Último log aplicado</h4>
+            </div>
+            <div id="production-log-box" class="notice info">Todavía no hay producción aplicada en esta sesión.</div>
+          </section>
+
+          <section class="summary-panel">
+            <div class="section-head">
+              <h3>🔥 Estado del orden</h3>
+              <span class="section-subtitle">La estabilidad del territorio</span>
+            </div>
+            <div id="revolt-box" class="notice info">Calculando tensión territorial...</div>
+            <div class="section-head compact-head">
+              <h4>Recursos de la heredad</h4>
+            </div>
+            <div id="territory-resources-grid" class="territory-resources-grid"></div>
+          </section>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>📊 Estado del territorio</h3>
+            <span class="section-subtitle">Indicadores civiles y de control</span>
+          </div>
+          <div id="territory-stats-grid" class="territory-stats-grid"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>⚔️ Milicia</h3>
+            <span class="section-subtitle">Capacidad militar del territorio</span>
+          </div>
+          <div id="territory-militia-grid" class="territory-militia-grid"></div>
+        </div>
+      </article>
+
+      <article class="card full-span">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>🔁 Transferencia de recursos</h3>
+            <span class="section-subtitle">Inventario personal ↔ Heredad</span>
+          </div>
+          <div class="transfer-grid">
+            <section>
+              <div class="section-head compact-head">
+                <h4>Inventario → Heredad</h4>
+              </div>
+              <div id="inventory-transfer-list" class="transfer-list"></div>
+            </section>
+            <section>
+              <div class="section-head compact-head">
+                <h4>Heredad → Inventario</h4>
+              </div>
+              <div id="territory-transfer-list" class="transfer-list"></div>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="card full-span">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>🏗️ Edificios construidos</h3>
+            <span class="section-subtitle">Infraestructura activa del dominio</span>
+          </div>
+          <div id="territory-built-buildings" class="buildings-grid"></div>
+        </div>
+      </article>
+
+      <article class="card full-span">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>🧱 Catálogo de construcciones</h3>
+            <span class="section-subtitle">Construí o mejorá obras usando oro y recursos</span>
+          </div>
+          <div id="territory-building-catalog" class="buildings-grid"></div>
+        </div>
+      </article>
+
+      <article class="card full-span">
+        <div class="card-body">
+          <div class="section-head">
+            <h3>📜 Crónica del territorio</h3>
+            <span class="section-subtitle">Personalización del dominio</span>
+          </div>
+          <form id="territory-form" class="territory-form">
+            <div class="input-group">
+              <label for="territory-name-input">Nombre del territorio</label>
+              <input id="territory-name-input" class="input" type="text" />
+            </div>
+            <div class="input-group">
+              <label for="territory-house-input">Casa gobernante</label>
+              <input id="territory-house-input" class="input" type="text" />
+            </div>
+            <div class="input-group">
+              <label for="territory-house-history">Historia de la casa</label>
+              <textarea id="territory-house-history" class="textarea" rows="4"></textarea>
+            </div>
+            <div class="input-group">
+              <label for="territory-history">Historia del territorio</label>
+              <textarea id="territory-history" class="textarea" rows="4"></textarea>
+            </div>
+            <div class="territory-form-actions">
+              <button class="btn btn-secondary" type="submit">Guardar crónica</button>
+            </div>
+            <div id="territory-form-feedback"></div>
+          </form>
+        </div>
+      </article>
+    </section>
+  </main>
+  <script src="/js/tierras.js"></script>
+</body>
+</html>

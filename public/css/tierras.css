@@ -1,0 +1,40 @@
+.lands-page { min-height: 100vh; }
+.lands-shell { max-width: 1480px; margin: 0 auto; padding: 24px; }
+.lands-topbar { margin-bottom: 24px; padding: 20px 24px; display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+.lands-topbar-left, .lands-topbar-right { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.lands-grid { display: grid; grid-template-columns: repeat(2, minmax(320px, 1fr)); gap: 20px; }
+.full-span, .lands-hero-card { grid-column: 1 / -1; }
+.lands-hero-body { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+.lands-hero-main { display: grid; gap: 10px; }
+.lands-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.lands-name-row h2 { font-size: 2rem; }
+.lands-subline { color: var(--gold-soft); font-size: 1.02rem; }
+.lands-bonus-copy { max-width: 760px; }
+.lands-hero-actions { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)); gap: 12px; min-width: 360px; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.summary-panel { display: grid; gap: 14px; }
+.compact-head { margin-top: 8px; }
+.production-timer-wrap { display: grid; gap: 4px; padding: 16px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.06); background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(0,0,0,0.08)); }
+.timer-label { color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.06em; }
+.production-countdown { font-size: 2rem; font-weight: 700; color: var(--gold-pale); }
+.territory-form { display: grid; gap: 14px; }
+.textarea { width: 100%; border: 1px solid rgba(214,177,112,0.14); background: rgba(11,8,6,0.76); color: var(--text); border-radius: 14px; padding: 13px 14px; outline: none; resize: vertical; }
+.textarea:focus { border-color: var(--border-strong); box-shadow: 0 0 0 4px rgba(201,167,92,0.08); background: rgba(15,11,8,0.94); }
+.territory-form-actions { display: flex; justify-content: flex-start; }
+.territory-stats-grid, .territory-resources-grid, .territory-militia-grid, .production-preview-grid, .buildings-grid, .transfer-list { display: grid; gap: 12px; }
+.territory-stats-grid, .territory-resources-grid, .territory-militia-grid, .production-preview-grid { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+.buildings-grid { grid-template-columns: repeat(2, minmax(280px, 1fr)); }
+.transfer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.territory-stat-card, .building-card, .transfer-row { padding: 16px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.06); background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(0,0,0,0.08)); }
+.territory-stat-top, .building-card-head, .transfer-row { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.territory-stat-top strong, .building-card-head strong, .transfer-row strong { color: var(--gold-pale); }
+.territory-stat-value { margin-top: 10px; font-size: 1.9rem; font-weight: 700; color: var(--gold-pale); }
+.compact-card .territory-stat-value { font-size: 1.45rem; }
+.resource-preview, .building-cost, .transfer-row p { margin-top: 8px; color: var(--text-dim); font-size: 0.94rem; }
+.building-card-head p { margin-top: 6px; }
+.slot-actions, .transfer-actions { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.qty-input.small { width: 86px; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); background: rgba(12,9,7,0.82); color: var(--text); }
+.mini-bonus { background: rgba(201,168,104,0.14); border: 1px solid rgba(201,168,104,0.18); border-radius: 999px; padding: 4px 10px; font-size: 0.82rem; color: var(--gold-pale); }
+@media (max-width: 1100px) { .lands-grid, .buildings-grid, .summary-grid, .transfer-grid { grid-template-columns: 1fr; } .lands-hero-body { flex-direction: column; } .lands-hero-actions { min-width: auto; width: 100%; } }
+@media (max-width: 720px) { .lands-topbar { flex-direction: column; align-items: stretch; } .territory-stats-grid, .territory-resources-grid, .territory-militia-grid, .production-preview-grid, .lands-hero-actions { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .lands-shell { padding: 16px; } .territory-stats-grid, .territory-resources-grid, .territory-militia-grid, .production-preview-grid, .lands-hero-actions { grid-template-columns: 1fr; } }

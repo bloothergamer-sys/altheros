@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altheros · Reino y Destino</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/juego.css" />
+</head>
+<body class="game-page">
+  <main class="game-shell">
+    <header class="game-topbar card">
+      <div class="game-topbar-left">
+        <div class="topbar-mark">⚜️ Altheros</div>
+        <div>
+          <h1>Reino y Destino</h1>
+          <p>Elegí región, leé el clima del mundo y gastá el oro en algo menos inútil.</p>
+        </div>
+      </div>
+
+      <div class="game-topbar-right">
+        <span id="world-year" class="badge">📅 Año 1000</span>
+        <span id="world-season" class="badge">🍂 Primavera</span>
+        <a id="btn-character" class="btn btn-secondary" href="#">Personaje</a>
+        <a id="btn-lands" class="btn btn-secondary" href="#">Tierras</a>
+        <button id="btn-logout" class="btn btn-danger">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <div class="game-main">
+      <section class="game-stage">
+        <nav class="stage-tabs">
+          <button class="stage-tab active" data-tab="mapa">🗺️ Mapa</button>
+          <button class="stage-tab" data-tab="misiones">📜 Misiones</button>
+          <button class="stage-tab" data-tab="heraldo">🕯️ Heraldo</button>
+          <button class="stage-tab" data-tab="mercado">⚖️ Mercado</button>
+        </nav>
+
+        <section id="tab-mapa" class="stage-panel active">
+          <div class="card stage-card">
+            <div class="card-body stage-card-body">
+              <div class="stage-head">
+                <div>
+                  <h2 class="card-title">Mapa del Reino</h2>
+                  <p class="card-subtitle">Seleccioná una región para ver su estado, rumores y misiones vinculadas.</p>
+                </div>
+                <span id="selected-map-region" class="badge">Sin región seleccionada</span>
+              </div>
+
+              <div class="map-wrapper game-map-wrapper">
+                <img src="/assets/mapa-altheros.png" alt="Mapa del Reino de Altheros" class="world-map" />
+
+                <button class="map-hotspot hotspot-isla" data-region="Isla del Gato">Isla del Gato</button>
+                <button class="map-hotspot hotspot-salmuera" data-region="Salmuera">Salmuera</button>
+                <button class="map-hotspot hotspot-centro" data-region="Tierras del Centro">Tierras del Centro</button>
+                <button class="map-hotspot hotspot-zahramar" data-region="Zahramar">Zahramar</button>
+                <button class="map-hotspot hotspot-velmora" data-region="Velmora">Velmora</button>
+                <button class="map-hotspot hotspot-marca" data-region="Marca del Sur">Marca del Sur</button>
+              </div>
+
+              <div id="map-region-panel" class="map-region-panel">
+                <div class="empty-state">
+                  Elegí una región del mapa para ver contexto, rumores y acceso rápido a misiones.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-misiones" class="stage-panel">
+          <div class="stage-split">
+            <div class="card stage-card">
+              <div class="card-body stage-card-body">
+                <div class="stage-head">
+                  <div>
+                    <h2 class="card-title">Misiones disponibles</h2>
+                    <p class="card-subtitle">El tablero cambia según la región que estés observando.</p>
+                  </div>
+                  <span id="mission-filter-badge" class="badge">Todas las regiones</span>
+                </div>
+
+                <div id="mission-list" class="mission-list"></div>
+              </div>
+            </div>
+
+            <div class="card stage-card">
+              <div class="card-body stage-card-body">
+                <div class="stage-head">
+                  <div>
+                    <h2 class="card-title">Resolución</h2>
+                    <p class="card-subtitle">Elegí el enfoque con el que querés encarar la situación.</p>
+                  </div>
+                </div>
+
+                <div id="mission-focus" class="empty-state">
+                  Seleccioná una misión para ver sus opciones de resolución.
+                </div>
+
+                <div id="mission-result" class="mission-result hidden">
+                  <div class="result-grid">
+                    <div class="result-box">
+                      <div class="kpi-label">Tirada</div>
+                      <div id="result-roll" class="kpi-value">-</div>
+                    </div>
+                    <div class="result-box">
+                      <div class="kpi-label">Total</div>
+                      <div id="result-total" class="kpi-value">-</div>
+                    </div>
+                    <div class="result-box">
+                      <div class="kpi-label">Dificultad</div>
+                      <div id="result-difficulty" class="kpi-value">-</div>
+                    </div>
+                    <div class="result-box">
+                      <div class="kpi-label">Resultado</div>
+                      <div id="result-status" class="kpi-value">-</div>
+                    </div>
+                  </div>
+
+                  <div id="result-rewards" class="notice info"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-heraldo" class="stage-panel">
+          <div class="card stage-card">
+            <div class="card-body stage-card-body">
+              <div class="stage-head">
+                <div>
+                  <h2 class="card-title">Heraldo del Reino</h2>
+                  <p class="card-subtitle">Rumores, señales y pequeños incendios políticos.</p>
+                </div>
+              </div>
+
+              <div class="herald-layout">
+                <div id="herald-list" class="herald-list"></div>
+                <aside class="herald-lore-panel">
+                  <h3>Lore de Altheros</h3>
+                  <div id="herald-lore-list" class="herald-lore-list"></div>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-mercado" class="stage-panel">
+          <div class="card stage-card">
+            <div class="card-body stage-card-body">
+              <div class="stage-head">
+                <div>
+                  <h2 class="card-title">Mercado</h2>
+                  <p class="card-subtitle">Sistema y jugadores. Comprar y vender. Sin subastas ni humo todavía.</p>
+                </div>
+                <span class="badge">Economía básica</span>
+              </div>
+
+              <div class="market-shell">
+                <div class="market-main-tabs">
+                  <button class="market-main-tab active" data-market-main="comprar">Comprar</button>
+                  <button class="market-main-tab" data-market-main="vender">Vender</button>
+                </div>
+
+                <div id="market-subtabs" class="market-subtabs"></div>
+                <div id="market-type-filters" class="market-type-filters"></div>
+                <div id="market-content" class="market-content"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="game-sidebar">
+        <div class="card sidebar-card">
+          <div class="card-body sidebar-card-body">
+            <div class="profile-head">
+              <div class="profile-avatar">🛡️</div>
+              <div>
+                <h2 id="profile-name" class="profile-name">Cargando...</h2>
+                <p id="profile-role" class="profile-role">Clase · Región</p>
+              </div>
+            </div>
+
+            <div class="profile-kpis">
+              <div class="kpi">
+                <span class="kpi-label">Nivel</span>
+                <span id="profile-level" class="kpi-value">1</span>
+              </div>
+              <div class="kpi">
+                <span class="kpi-label">Oro</span>
+                <span id="profile-gold" class="kpi-value">0</span>
+              </div>
+              <div class="kpi">
+                <span class="kpi-label">Experiencia</span>
+                <span id="xp-value" class="kpi-value">0</span>
+              </div>
+              <div class="kpi">
+                <span class="kpi-label">Prestigio</span>
+                <span id="prestige-value" class="kpi-value">0</span>
+              </div>
+              <div class="kpi">
+                <span class="kpi-label">Salud</span>
+                <span id="health-value" class="kpi-value">100</span>
+              </div>
+              <div class="kpi">
+                <span class="kpi-label">Energía</span>
+                <span id="energy-value" class="kpi-value">100</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card sidebar-card">
+          <div class="card-body sidebar-card-body">
+            <div class="section-title">
+              <h3>📊 Stats</h3>
+            </div>
+            <div id="stats-list" class="stats-list"></div>
+          </div>
+        </div>
+
+        <div class="card sidebar-card">
+          <div class="card-body sidebar-card-body">
+            <div class="section-title">
+              <h3>🎒 Inventario</h3>
+            </div>
+            <div id="inventory-list" class="inventory-list"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="/js/juego.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altheros · Crear personaje</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/creacion.css" />
+</head>
+<body class="creation-page">
+  <main class="creation-shell">
+    <section class="creation-main">
+      <div class="card map-card">
+        <div class="card-body map-card-body">
+          <div class="map-topbar">
+            <div>
+              <h2 class="card-title">Mapa del Reino</h2>
+              <p class="card-subtitle">Elegí región, clase y rasgos sin fumarte media página de scroll.</p>
+            </div>
+            <span class="badge">🗺️ Origen del personaje</span>
+          </div>
+
+          <div class="creation-stage-grid">
+            <div class="creation-left">
+              <div class="creation-intro">
+                <span class="badge">⚜️ Fundación del personaje</span>
+                <h1>Forjá tu origen</h1>
+                <p>
+                  Elegí quién sos, de dónde venís y qué clase de problema elegante vas a soltar en el reino.
+                </p>
+              </div>
+
+              <form id="form-creacion" class="creation-form">
+                <div class="input-group">
+                  <label for="nombre-personaje">Nombre del personaje</label>
+                  <input
+                    id="nombre-personaje"
+                    class="input"
+                    type="text"
+                    placeholder="Ej: Aldren de Salmuera"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Clase inicial</label>
+                  <div class="class-selector">
+                    <button type="button" class="class-card active" data-class="guerrero">
+                      <strong>⚔️ Guerrero</strong>
+                      <span>Combate directo, marcialidad y presencia física.</span>
+                    </button>
+
+                    <button type="button" class="class-card" data-class="noble">
+                      <strong>👑 Noble</strong>
+                      <span>Diplomacia, prestigio y administración del poder.</span>
+                    </button>
+
+                    <button type="button" class="class-card" data-class="erudito">
+                      <strong>📚 Erudito</strong>
+                      <span>Conocimiento, estudio e intriga sutil.</span>
+                    </button>
+
+                    <button type="button" class="class-card" data-class="explorador">
+                      <strong>🏹 Explorador</strong>
+                      <span>Movilidad, destreza y lectura del terreno.</span>
+                    </button>
+
+                    <button type="button" class="class-card" data-class="mercader">
+                      <strong>💰 Mercader</strong>
+                      <span>Oro, negociación y manejo de recursos.</span>
+                    </button>
+                  </div>
+                  <input id="clase-hidden" type="hidden" value="guerrero" />
+                </div>
+
+                <div class="origin-box">
+                  <div class="origin-head">
+                    <strong>📍 Región seleccionada</strong>
+                  </div>
+                  <div id="selected-region-label" class="origin-empty">
+                    Todavía no elegiste una región.
+                  </div>
+                  <input id="region-hidden" type="hidden" value="" />
+                </div>
+
+                <div id="class-bonus-box" class="class-bonus notice info">
+                  <strong>Bonos iniciales por clase</strong><br />
+                  Guerrero: +2 Marcial, +1 Destreza, +10 Salud
+                </div>
+
+                <div class="creation-actions">
+                  <a href="/login.html" class="btn btn-secondary">Volver</a>
+                  <button id="btn-crear-personaje" type="submit" class="btn btn-primary" disabled>
+                    Entrar al mundo
+                  </button>
+                </div>
+
+                <div id="creation-feedback"></div>
+              </form>
+            </div>
+
+            <div class="creation-right">
+              <div class="map-wrapper creation-map-wrapper">
+                <img
+                  src="/assets/mapa-altheros.png"
+                  alt="Mapa de Altheros"
+                  class="world-map"
+                />
+
+                <button type="button" class="map-hotspot hotspot-isla" data-region="Isla del Gato">Isla del Gato</button>
+                <button type="button" class="map-hotspot hotspot-salmuera" data-region="Salmuera">Salmuera</button>
+                <button type="button" class="map-hotspot hotspot-centro" data-region="Tierras del Centro">Tierras del Centro</button>
+                <button type="button" class="map-hotspot hotspot-zahramar" data-region="Zahramar">Zahramar</button>
+                <button type="button" class="map-hotspot hotspot-velmora" data-region="Velmora">Velmora</button>
+                <button type="button" class="map-hotspot hotspot-marca" data-region="Marca del Sur">Marca del Sur</button>
+              </div>
+
+              <div id="region-detail" class="region-detail">
+                <div class="region-detail-main">
+                  <span class="badge">Seleccioná una región</span>
+                  <h3>Tu historia todavía no tiene raíz</h3>
+                  <p>
+                    Cada región define tono, oportunidades y el tipo de personaje que encaja mejor en ese entorno.
+                  </p>
+                </div>
+
+                <div class="region-detail-side">
+                  <div class="detail-stat">
+                    <strong>Gentilicio</strong>
+                    <span>—</span>
+                  </div>
+                  <div class="detail-stat">
+                    <strong>Enfoque</strong>
+                    <span>—</span>
+                  </div>
+                  <div class="detail-stat">
+                    <strong>Bono sugerido</strong>
+                    <span>—</span>
+                  </div>
+                </div>
+              </div>
+
+              <section class="traits-builder card-soft">
+                <div class="traits-builder-head">
+                  <div>
+                    <h3>🧠 Selección de traits</h3>
+                    <p>Exactamente 2 personalidad, 1 físico, 1 habilidad y 1 negativo.</p>
+                  </div>
+                  <span id="traits-overview" class="badge">0/5 elegidos</span>
+                </div>
+
+                <div id="traits-validation-box" class="notice info">
+                  Elegí 2 de personalidad, 1 físico, 1 habilidad y 1 negativo.
+                </div>
+
+                <div id="selected-traits-summary" class="selected-traits-summary">
+                  Sin selección todavía.
+                </div>
+
+                <div id="trait-sections" class="trait-sections">
+                  <div class="empty-state">Cargando catálogo de traits...</div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/creacion.js"></script>
+</body>
+</html>
